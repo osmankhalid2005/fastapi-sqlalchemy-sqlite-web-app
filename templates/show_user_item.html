@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script language="javascript" type="text/javascript">
+function editItem(item_id)
+{
+document.getElementById("item_id").value = item_id;
+document.getElementById("frm").action="edit_user_item";
+document.getElementById("frm").submit();
+}
+
+function deleteItem(item_id)
+{
+if(!confirm("Are you sure you want to delete record?"))
+return;
+
+document.getElementById("item_id").value = item_id;
+document.getElementById("frm").action="delete_user_item";
+document.getElementById("frm").submit();
+}
+
+function goBack()
+{
+document.getElementById("frm").action="show_user_items";
+document.getElementById("frm").submit();
+}
+</script>
+
+Displaying Items for following user:<br><br>
+ID: {{user.id}} <br>
+Name: {{user.name}}<br>
+E-mail: {{user.email}} <br>
+
+<form id="frm" method="post">   
+<input id="item_id" name="item_id" type="hidden" />
+<input id="user_id" name="user_id" type="hidden" value="{{user.id}}" />
+</form>
+
+<br>
+<table border="1">
+
+<tr><td>Id</td><td>{{item.id}}</td></tr>
+<tr><td>Title</td><td>{{item.title}}</td></tr>
+<tr><td>Description</td><td>{{item.description}}</td></tr>
+<tr>
+<td><a href="javascript:;" onclick="editItem({{item.id}});" >Edit</a></td>
+<td><a href="javascript:;" onclick="deleteItem({{item.id}});" >Delete</a></td>
+</tr>
+
+<tr>
+<td colspan="2" align="center"><a href="javascript:;" onclick="goBack();" >Back</a></td>
+</tr>
+
+</table>
+{% endblock %}

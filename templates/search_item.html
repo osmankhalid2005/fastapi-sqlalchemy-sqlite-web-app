@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function() {
+  $("#btn").click(function() {
+  
+  var item_id = $("#item_id").val();
+      
+      $.ajax({
+        url: '/search_item',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ "item_id": item_id }),
+        dataType: 'json',
+		cache: false,
+		success: function(response)
+		{	
+			
+			
+			if(response['MSG'] == "NOT_FOUND")
+			{
+				$("#tbl").hide();
+				$("#msg").text("Record not found");			
+			}
+			else
+			{
+				$("#msg").text("");
+			    $("#tbl").show();
+				$("#lblid").text(response['id']);
+				$("#lbltitle").text(response['title']);
+				$("#lbldescription").text(response['description']);
+				$("#lblowner").text(response['owner_id']);
+				$("#lblname").text(response['user_name']);
+				$("#lblemail").text(response['user_email']);			
+			}
+		
+		},
+		
+		error: function(response)
+		{ 
+			$("#div1").text("There is some error in code...");
+		}
+      });
+  });
+});
+
+</script>
+
+
+<form id="frm" method="post">
+    Enter Item Id: <input id="item_id" name="item_id" type="number"  />	
+    <input id="btn" name="btn" type="button" value="Search" />
+</form>
+
+
+
+<br>
+<table id="tbl" border="1" style="display:none">
+
+<tr><td colspan="2" align="center">Item Details</td></tr>
+<tr><td>Id</td><td><label id="lblid"></label></td></tr>
+<tr><td>Title</td><td><label id="lbltitle"></label></td></tr>
+<tr><td>Description</td><td><label id="lbldescription"></label></td></tr>
+<tr><td colspan="2"> &nbsp </td></tr>
+<tr><td colspan="2" align="center">Owner Details</td></tr>
+<tr><td>User Id</td><td><label id="lblowner"></label></td></tr>
+<tr><td>Name</td><td><label id="lblname"></label></td></tr>
+<tr><td>E-mail</td><td><label id="lblemail"></label></td></tr>
+
+</table>
+
+<label id="msg"></label>
+
+
+
+{% endblock %}

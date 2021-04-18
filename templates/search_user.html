@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<script language="javascript" type="text/javascript">
+function getUser(user)
+{
+document.getElementById("user_id").value = user;
+document.getElementById("frm").action="edit_user";
+document.getElementById("frm").submit();
+}
+
+function sendUser(user_id)
+{
+document.getElementById("frm").action="search_user";
+document.getElementById("frm").submit();
+}
+
+function deleteUser(user)
+{
+if(!confirm("Are you sure you want to delete record?"))
+return;
+
+document.getElementById("user_id").value = user;
+document.getElementById("frm").action="delete_user";
+document.getElementById("frm").submit();
+}
+
+function insertUserItem(user_id)
+{
+document.getElementById("user_id").value = user_id;
+document.getElementById("frm").action="insert_user_item_form";
+document.getElementById("frm").submit();
+}
+
+</script>
+
+<form id="frm" method="post">
+    Enter User Id: <input id="user_id" type="number" name="user_id" />	
+    <input id="btnsubmit" name="btnsubmit" type="button" onclick="sendUser();" value="Search">
+</form>
+<br>
+
+{% if user.id is defined %}
+
+<table border="1">
+
+<tr><td>Id</td><td>{{user.id}}</td></tr>
+<tr><td>Name</td><td>{{user.name}}</td></tr>
+<tr><td>E-mail</td><td>{{user.email}}</td></tr>
+<tr><td>Password</td><td>{{user.hashed_password}}</td></tr>
+<tr><td>Address</td><td>{{user.address}}</td></tr>
+<tr><td>Active</td><td>{{user.is_active}}</td></tr>
+<tr>
+<td><a href="javascript:;" onclick="getUser({{user.id}});" >Edit</a></td>
+<td><a href="javascript:;" onclick="deleteUser({{user.id}});" >Delete</a></td>
+</tr>
+</table>
+<br>
+<a href="javascript:;" onclick="insertUserItem({{user.id}});" >Insert new item</a>
+
+{% endif %}
+{% endblock %}

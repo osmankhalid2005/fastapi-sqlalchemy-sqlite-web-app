@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script language="javascript" type="text/javascript">
+function insertItem(user_id)
+{
+document.getElementById("user_id").value = user_id;
+document.getElementById("frm").action="insert_user_item_post";
+document.getElementById("frm").submit();
+}
+
+function goBack(user_id)
+{
+document.getElementById("user_id").value = user_id;
+document.getElementById("frm").action="show_user_items";
+document.getElementById("frm").submit();
+}
+
+</script>
+
+Displaying Items for following user:<br><br>
+ID: {{user.id}} <br>
+Name: {{user.name}}<br>
+E-mail: {{user.email}} <br>
+
+<form id="frm" method="post">   
+<input id="user_id" name="user_id" type="hidden" />
+
+
+<br>
+<table border="1">
+
+<tr><td>Title</td><td><input id="item_title" name="item_title" type="text" /></td></tr>
+<tr><td>Description</td><td><input id="item_desc" name="item_desc" type="text" /></td></tr>
+<tr>
+<td><a href="javascript:;" onclick="insertItem({{user.id}});" >Insert</a></td>
+<td><a href="javascript:;" onclick="goBack({{user.id}});" >Back</a></td>
+</tr>
+
+</table>
+</form>
+{% endblock %}

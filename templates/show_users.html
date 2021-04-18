@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script language="javascript" type="text/javascript">
+function getUser(user)
+{
+document.getElementById("user_id").value = user;
+document.getElementById("frm").action="search_user";
+document.getElementById("frm").submit();
+}
+
+function LoadUsers()
+{
+document.getElementById("frm").action="show_users";
+document.getElementById("frm").submit();
+}
+
+function getUserItems(user_id, user_name, user_email)
+{
+document.getElementById("user_id").value = user_id;
+document.getElementById("user_name").value = user_name;
+document.getElementById("user_email").value = user_email;
+document.getElementById("frm").action="show_user_items";
+document.getElementById("frm").submit();
+}
+
+</script>
+
+<form id="frm" method="post">
+    From: <input type="number" name="from_limit" value="{{from_limit}}"/>
+	To: <input type="number" name="to_limit" value="{{to_limit}}"/>
+    <input id="btn" name="btn" type="button" value="Select" onclick="LoadUsers();">
+	<input id="user_id" name="user_id" type="hidden" />
+	<input id="user_name" name="user_name" type="hidden" />
+	<input id="user_email" name="user_email" type="hidden" />
+	<input id="source" name="source" value="users" type="hidden" />
+</form>
+<br>
+
+<br>
+
+<table border="1">
+<tr>
+
+<td></td>
+
+<td>Id</td>
+<td>Name</td>
+<td>E-mail</td>
+<td>Password</td>
+<td>Address</td>
+<td>Active</td>
+<td>Total Items</td>
+
+</tr>
+
+{% for user in result %}
+
+
+<tr>
+
+<td><a href="javascript:;" onclick="getUser({{user.id}});" >Show</a></td>
+
+<td>{{user.id}}</td>
+<td>{{user.name}}</td>
+<td>{{user.email}}</td>
+<td>{{user.hashed_password}}</td>
+<td>{{user.address}}</td>
+<td>{{user.is_active}}</td>
+<td>
+{% set item_count = user.items|length %} 
+{% if item_count > 0 %}
+<a href="javascript:;" onclick="getUserItems({{user.id}}, '{{user.name}}', '{{user.email}}');" >{{item_count}}</a>
+{% else %}
+0
+{% endif %}
+
+</td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}

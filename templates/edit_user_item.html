@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script language="javascript" type="text/javascript">
+function updateItem(item_id)
+{
+document.getElementById("item_id").value = item_id;
+document.getElementById("frm").action="update_user_item";
+document.getElementById("frm").submit();
+}
+
+function goBack(item_id)
+{
+document.getElementById("item_id").value = item_id;
+document.getElementById("frm").action="show_user_item";
+document.getElementById("frm").submit();
+}
+
+</script>
+
+Displaying Items for following user:<br><br>
+ID: {{user.id}} <br>
+Name: {{user.name}}<br>
+E-mail: {{user.email}} <br>
+
+<form id="frm" method="post">   
+<input id="item_id" name="item_id" type="hidden" />
+
+
+<br>
+<table border="1">
+
+<tr><td>Id</td><td>{{item.id}}</td></tr>
+<tr><td>Title</td><td><input id="item_title" name="item_title" value="{{item.title}}" /></td></tr>
+<tr><td>Description</td><td><input id="item_desc" name="item_desc" value="{{item.description}}" /></td></tr>
+<tr>
+<td><a href="javascript:;" onclick="updateItem({{item.id}});" >Update</a></td>
+<td><a href="javascript:;" onclick="goBack({{item.id}});" >Back</a></td>
+</tr>
+
+</table>
+</form>
+{% endblock %}

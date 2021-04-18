@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script language="javascript" type="text/javascript">
+function getItem(item_id)
+{
+document.getElementById("item_id").value = item_id;
+document.getElementById("frm").action="show_user_item";
+document.getElementById("frm").submit();
+}
+
+function insertUserItem(user_id)
+{
+document.getElementById("user_id").value = user_id;
+document.getElementById("frm").action="insert_user_item_form";
+document.getElementById("frm").submit();
+}
+
+</script>
+
+
+Displaying Items for following user:<br><br>
+ID: {{user.id}} <br>
+Name: {{user.name}}<br>
+E-mail: {{user.email}} <br>
+
+<form id="frm" method="post">   
+
+<input id="item_id" name="item_id" type="hidden" />
+<input id="user_id" name="user_id" type="hidden" />
+<input id="source" name="source" value="users" type="hidden" />	
+	
+</form>
+
+<br>
+<table border="1">
+<tr>
+<td></td>
+<td>Id</td>
+<td>Title</td>
+<td>Description</td>
+</tr>
+
+{% for item in items %}
+
+
+<tr>
+<td><a href="javascript:;" onclick="getItem({{item.id}});" >Show</a></td>
+<td>{{item.id}}</td>
+<td>{{item.title}}</td>
+<td>{{item.description}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+<br>
+<a href="javascript:;" onclick="insertUserItem({{user.id}});" >Insert new item</a>
+{% endblock %}

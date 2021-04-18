@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script language="javascript" type="text/javascript">
+function insertUser()
+{
+document.getElementById("frm").action="insert_user";
+document.getElementById("frm").submit();
+}
+
+
+</script>
+
+<form id="frm" method="post">
+   
+
+<table border="1">
+
+<tr><td>Name</td><td><input id="user_name" name="user_name" type="text" /></td></tr>
+<tr><td>E-mail</td><td><input id="user_email" name="user_email" type="text"  /></td></tr>
+<tr><td>Password</td><td><input id="user_passwd" name="user_passwd" type="password"  /></td></tr>
+<tr><td>Address</td><td><input id="user_address" name="user_address" type="text" /></td></tr>
+<tr><td><a href="javascript:;" onclick="insertUser();" >Save</a></td>
+<td><a href="javascript:;" onclick="window.location.href='home';" >Back</a></td></tr>
+</table>
+</form>
+{% endblock %}

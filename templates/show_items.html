@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script language="javascript" type="text/javascript">
+function getItem(item_id)
+{
+
+//var dict = {"item_id": item_id};
+
+document.getElementById("item_id").value = item_id;
+document.getElementById("frm").action="show_user_item";
+document.getElementById("frm").submit();
+}
+
+function LoadItems()
+{
+document.getElementById("frm").action="show_items";
+document.getElementById("frm").submit();
+}
+
+</script>
+
+<form id="frm" method="post">
+    From: <input type="number" name="from_limit" value="{{from_limit}}"/>
+	To: <input type="number" name="to_limit" value="{{to_limit}}"/>
+	<input id="btn" name="btn" type="button" value="Select" onclick="LoadItems();">
+    <input id="item_id" name="item_id" type="hidden" />
+</form>
+<br>
+
+<br>
+
+<table border="1">
+<tr>
+
+<td></td>
+<td>Id</td>
+<td>Title</td>
+<td>Description</td>
+<td>Owner ID</td>
+
+</tr>
+
+{% for item in result %}
+
+<tr>
+
+<td><a href="javascript:;" onclick="getItem({{item.id}});" >Show</a></td>
+<td>{{item.id}}</td>
+<td>{{item.title}}</td>
+<td>{{item.description}}</td>
+<td>{{item.owner_id}}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}
