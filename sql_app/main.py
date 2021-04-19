@@ -102,7 +102,7 @@ def Insert_User_Post(request: Request, db: Session = Depends(get_db), user_name:
     db.refresh(db_user)
     user_id = db_user.id # getting the last newly inserted primary key      
     result = db.query(models.User).filter(models.User.id == user_id).first() 
-    return templates.TemplateResponse('search_user.html', context={'request': request, 'result': result, 'user_id': user_id})
+    return templates.TemplateResponse('search_user.html', context={'request': request, 'user': result, 'user_id': user_id})
       
 
 ######### TO DISPLAY ITEMS OF A USER ####################
