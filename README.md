@@ -11,13 +11,17 @@ Basic Requirements:
 
 Python 3.9.4 (installed with updated pip)
 
-fastapi
+fastapi --> pip install fastapi
 
-uvicorn
+uvicorn --> pip install uvicorn[standard]
 
-sqlalchemy
+sqlalchemy --> pip install sqlalchemy
 
-jinja2
+jinja2 --> pip install jinja2
+
+pymysql --> pip install pymysql
+
+mysql --> pip install mysql
 
 
 After all the pre-requisites are installed, use this command (with administrator rights) to run the application:
@@ -29,9 +33,3 @@ uvicorn sql_app.main:app --reload
 Then, in browser, write: http://127.0.0.1:8000/home
 
 To see docs, write: http://127.0.0.1:8000/docs
-
-
-
-
-
-
